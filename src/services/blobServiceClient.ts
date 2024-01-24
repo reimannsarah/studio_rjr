@@ -1,11 +1,10 @@
-import { BlobServiceClient, AnonymousCredential } from "@azure/storage-blob";
+import { BlobServiceClient } from "@azure/storage-blob";
 
 const accountName = import.meta.env.VITE_AZURE_STORAGE_ACCOUNT_NAME as string;
 if (!accountName) throw Error("VITE_AZURE_STORAGE_ACCOUNT_NAME is not set");
 
 const blobServiceClient = new BlobServiceClient(
-  `https://${accountName}.blob.core.windows.net`,
-  new AnonymousCredential()
+  `https://${accountName}.blob.core.windows.net`
 );
 
 interface BlobInfo {
@@ -14,7 +13,7 @@ interface BlobInfo {
 }
 
 async function main(): Promise<BlobInfo[]> {
-  const containerName = "images";
+  const containerName = "art";
   const containerClient = blobServiceClient.getContainerClient(containerName);
 
   const blobInfos: BlobInfo[] = [];
@@ -23,10 +22,16 @@ async function main(): Promise<BlobInfo[]> {
     const response = await fetch(blobUrl);
     const blobData = await response.blob();
     const reader = new FileReader();
-    reader.onloadend = function() {
+    reader.onloadend = async function() {
       const base64data = reader.result;
       sessionStorage.setItem(blob.name, base64data as string);
-      blobInfos.push({ name: blob.name });
+
+      const blobClient = containerClient.getBlobClient(blob.name);
+      const properties = await blobClient.getProperties();
+      blobInfos.push({ name: blob.name, metadata: properties.metadata });
+
+      // Save the blob metadata to sessionStorage
+      sessionStorage.setItem(blob.name + "_metadata", JSON.stringify(properties.metadata));
     }
     reader.readAsDataURL(blobData);
   }
@@ -42,4 +47,4 @@ main()
     }
   });
 
-  export default main;
+export default main;
