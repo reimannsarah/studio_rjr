@@ -58,6 +58,23 @@
   display: none;
 }
 
+/* .outernav {
+  position: relative;
+  height: 8rem;
+  width: 8rem;
+  right: 0;
+}
+
+.innernav {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  right: 0;
+  height: 4rem;
+  width: 6rem;
+} */
+
 
 
 html {
