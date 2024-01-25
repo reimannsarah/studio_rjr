@@ -16,26 +16,38 @@ async function main(): Promise<BlobInfo[]> {
   const containerName = "art";
   const containerClient = blobServiceClient.getContainerClient(containerName);
 
-  const blobInfos: BlobInfo[] = [];
+  const promises: Promise<BlobInfo>[] = [];
   for await (const blob of containerClient.listBlobsFlat()) {
     const blobUrl = `https://${accountName}.blob.core.windows.net/${containerName}/${blob.name}`;
     const response = await fetch(blobUrl);
     const blobData = await response.blob();
-    const reader = new FileReader();
-    reader.onloadend = async function() {
-      const base64data = reader.result;
-      sessionStorage.setItem(blob.name, base64data as string);
 
-      const blobClient = containerClient.getBlobClient(blob.name);
-      const properties = await blobClient.getProperties();
-      blobInfos.push({ name: blob.name, metadata: properties.metadata });
+    const promise = new Promise<BlobInfo>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = async function() {
+        try {
+          const base64data = reader.result;
+          sessionStorage.setItem(blob.name, base64data as string);
 
-      // Save the blob metadata to sessionStorage
-      sessionStorage.setItem(blob.name + "_metadata", JSON.stringify(properties.metadata));
-    }
-    reader.readAsDataURL(blobData);
+          const blobClient = containerClient.getBlobClient(blob.name);
+          const properties = await blobClient.getProperties();
+          const blobInfo = { name: blob.name, metadata: properties.metadata };
+
+          // Save the blob metadata to sessionStorage
+          sessionStorage.setItem(blob.name + "_metadata", JSON.stringify(properties.metadata));
+
+          resolve(blobInfo);
+        } catch (err) {
+          reject(err);
+        }
+      };
+      reader.readAsDataURL(blobData);
+    });
+
+    promises.push(promise);
   }
 
+  const blobInfos = await Promise.all(promises);
   return blobInfos;
 }
 
