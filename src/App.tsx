@@ -5,10 +5,12 @@ import MixedMedia from "./components/main/MixedMedia";
 import AbstractPaintings from "./components/main/AbstractPaintings";
 import Portraits from "./components/main/Portraits";
 import CharcoalDrawings from "./components/main/CharcoalDrawings";
+import NavBar from './components/main/NavBar';
 
 function App() {
   return (
     <Router>
+      <NavBar />
       <Routes>
         <Route path="/mixed-media" element={<MixedMedia />} />
         <Route path="/abstract-paintings" element={<AbstractPaintings />} />
