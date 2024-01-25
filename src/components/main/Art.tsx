@@ -55,10 +55,10 @@ const ArtData = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-[30px] rounded-lg border-4 border-black mt-[400px]">
+      <div className="w-[600px] h-[30px] rounded-lg border-4 border-black mt-[400px] mx-auto">
         <div
           style={{ width: `${progress}%` }}
-          className="h-full rounded-sm bg-[#21ACAB] transition-width duration-500 ease-out"
+          className="h-full rounded-sm bg-white transition-width duration-500 ease-out"
         ></div>
       </div>
     );
@@ -66,12 +66,12 @@ const ArtData = () => {
 
   return (
     <motion.div
-      className="flex flex-row flex-wrap gap-10 justify-center my-[100px]"
+      className="flex  flex-col lg:flex-row flex-wrap gap-5 p-3 lg:gap-10 items-center lg:justify-evenly my-[200px]"
       key={key}
     >
       {blobs.map((blobInfo, index) => (
         <motion.div
-          variants={fadeIn(0.5)}
+          variants={fadeIn(index * 0.2)}
           initial="hidden"
           animate="visible"
           key={index}
