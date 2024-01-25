@@ -33,7 +33,6 @@ const ArtData = () => {
     }
   }, [isLoading]);
 
-  console.log(progress);
   useEffect(() => {
     main()
       .then((blobInfos) => {
