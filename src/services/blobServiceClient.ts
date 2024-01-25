@@ -7,7 +7,7 @@ const blobServiceClient = new BlobServiceClient(
   `https://${accountName}.blob.core.windows.net`
 );
 
-interface BlobInfo {
+export interface BlobInfo {
   name: string;
   metadata?: Record<string, string>;
 }
