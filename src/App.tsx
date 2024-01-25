@@ -1,26 +1,22 @@
-import { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import "./App.css";
 import Hero from "./components/main/Hero";
-import main from "./services/blobServiceClient";
+import MixedMedia from "./components/main/MixedMedia";
+import AbstractPaintings from "./components/main/AbstractPaintings";
+import Portraits from "./components/main/Portraits";
+import CharcoalDrawings from "./components/main/CharcoalDrawings";
 
 function App() {
-  useEffect(() => {
-    main()
-      .then((blobInfos) => {
-        sessionStorage.setItem("blobInfos", JSON.stringify(blobInfos));
-      })
-      .catch((err) => console.error(err));
-
-    const storedBlobInfos = sessionStorage.getItem("blobInfos");
-    if (storedBlobInfos) {
-      console.log(JSON.parse(storedBlobInfos));
-    }
-  }, []);
-
   return (
-    <>
-      <Hero />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/mixed-media" element={<MixedMedia />} />
+        <Route path="/abstract-paintings" element={<AbstractPaintings />} />
+        <Route path="/portraits" element={<Portraits />} />
+        <Route path="/charcoal-drawings" element={<CharcoalDrawings />} />
+        <Route path="/" element={<Hero />} />
+      </Routes>
+    </Router>
   );
 }
 
