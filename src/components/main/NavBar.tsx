@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-      <div className="fixed right-0 h-16 w-50 p-5 gap-5 flex flex-row z-600">
+      <div className="fixed right-0 h-16 w-50 p-5 gap-5 flex flex-row z-600 text-primary">
         <NavLink to="/">
           <p>Home</p>
         </NavLink>
