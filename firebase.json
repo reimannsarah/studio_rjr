@@ -9,7 +9,7 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "../dist/index.html",
         "headers": 
           {
             "key": "VITE_AZURE_STORAGE_ACCOUNT_NAME",
