@@ -10,6 +10,11 @@
     "rewrites": [
       {
         "source": "**",
+        "headers": 
+          {
+            "key": "VITE_AZURE_STORAGE_ACCOUNT_NAME",
+            "value": "studiorjr"
+          },
         "destination": "/index.html"
       }
     ]
