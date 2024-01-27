@@ -25,12 +25,12 @@ const Hero = () => {
   if (isLoading)
     return (
       <div className="mt-[400px] w-max my-0 mx-auto">
-        <h1 className="text-white text-[100px] text-header animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-white pr-5 text-5xl font-bold">Welcome to the studio...</h1>
+        <h1 className="text-white text-lg sm:text-2xl md:text-4xl lg:text-6xl xl:text-8xl font-bold overflow-hidden whitespace-nowrap border-r-4 border-r-white pr-5 animate-typing">Welcome to the studio...</h1>
       </div>
     );
 
   return (
-    <div className="flex flex-col lg:flex-row gap-10 justify-evenly my-[200px] w-full">
+    <div className="flex flex-col my-[200px] items-center lg:flex-row gap-3 sm:gap-2 md:gap-3 lg:gap-4 xl:gap-10 lg:justify-evenly">
       {heroBlobs.map((blobInfo, index) => (
         <motion.div
           variants={slideInFromRight(index * 0.6)}
@@ -40,7 +40,7 @@ const Hero = () => {
           key={index}
         >
           <img
-            className="object-contain"
+            className="w-3/5 sm:w-2/3 md:w-3/4 lg:w-full object-contain sm:m-2"
             key={index}
             src={sessionStorage.getItem(blobInfo.name) || ""}
             alt={blobInfo.name}

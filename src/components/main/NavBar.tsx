@@ -10,11 +10,11 @@ const NavBar = () => {
       variants={slideInFromTop(5)}
       initial="hidden"
       animate="visible"
-      className="absolute right-10 h-16 w-50 p-5 gap-5 flex flex-row z-600 text-primary mt-[50px]"
+      className="absolute right-10 h-16 w-50 p-5 gap-5 flex flex-row md:flex-col sm:flex-wrap z-600 text-primary mt-[50px]"
     >
       <NavLink
         to="/"
-        className={location.pathname === "/" ? "text-white" : "text-primary"}
+        className={`${location.pathname === "/" ? "text-white" : "text-primary"} sm:hidden`}
       >
         <p className="hover:line-through">Home</p>
       </NavLink>
@@ -28,7 +28,7 @@ const NavBar = () => {
         to="/abstract"
         className={location.pathname === "/abstract" ? "text-white" : "text-primary"}
       >
-        <p className="hover:line-through">Abstract Paintings</p>
+        <p className="hover:line-through">Abstract</p>
       </NavLink>
       <NavLink
         to="/portrait"
@@ -40,7 +40,7 @@ const NavBar = () => {
         to="/charcoal"
         className={location.pathname === "/charcoal" ? "text-white" : "text-primary"}
       >
-        <p className="hover:line-through">Charcoal Drawings</p>
+        <p className="hover:line-through">Charcoal</p>
       </NavLink>
     </motion.div>
   );
